@@ -67,7 +67,7 @@ void SearchForHashTable(CounterOfLetters *table, int size, char ltr)
 
 void ForBalanceTree(CounterOfLetters *C2, int iter)
 {
-	//Ѕалансировка дерева
+	//Balanced Tree
 	map<char, int> Balance;
 
 	for (int i = 0; i < iter; i++)
@@ -125,18 +125,28 @@ int main()
 	srand(time(NULL));
 	unsigned int start_time = 0, end_time = 0;
 	
-	Tree Object;           
-	string arr = " ";
-	arr = "abcfgdeaff"; 
-	//cout << "input string: " << endl;  
-	//getline(cin, arr);
-	int strSize = arr.size();
+	Tree Object;    
+	cout << "Input size of string: ";
+	int strSize;
+	cin >> strSize;
+	char* arr = new char[strSize];
+	cout << "input string: ";  
+	int bfcounter = 0;
+	for (int i = 0; i < strSize; i++)
+		cin >> arr[i];
+	
 	//arr.erase(arr.find(' '), 1);
 
-	//strSize = arr.size();
-	Object.SetSize(strSize);
 	system("cls");
-	cout << "Your string: " << arr << endl;
+	cout << "Your string: ";
+	for (int i = 0; i < strSize; i++)
+	{
+		cout << arr[i];
+		bfcounter++;
+	}
+	cout << endl;
+	strSize = bfcounter;
+	Object.SetSize(strSize);
 
 	for (int i = 0; i<strSize; i++)
 		Object.insert_node((char)arr[i]); 
@@ -172,7 +182,7 @@ int main()
 	int bufferCounter = 0;
 
 
-	//”даление повтор€ющихс€ букв
+	//erase repeated letters of BST
 	for (int i = 0; i < strSize; i++)
 		if (C1[i].key < 2)
 			C2[bufferCounter++].letter = C1[i].letter;
@@ -192,88 +202,10 @@ int main()
 	end_time = clock();
 	cout << "Your letter was searched!\nTime of search: " << end_time - start_time << endl;
 	
-	ForBalanceTree(C2, iter); //Ѕалансировка дерева
-	ForHashTable(C1, strSize); //’эш-таблица
+	ForBalanceTree(C2, iter); //Balanced tree
+	ForHashTable(C1, strSize); //Hash-Table
 
 
 	cin.get();
 	_getch();
 }
-
-
-
-
-
-
-//Object.delete_node(Object.find_node(Object.get_root(), (char)a));    
-
-
-//void InitTable(int *table, int size)
-//{
-//	for (int i = 0; i < size; i++)
-//		table[i] = -999;
-//}
-//void insert(int *table, int size, int no)
-//{
-//	bool inserted = false;
-//	int k = no % size;
-//
-//	while (!inserted)
-//	{
-//		if (table[k] == -999)
-//		{
-//			table[k] = no;
-//			inserted = true;
-//		}
-//		else
-//		{
-//			k++;
-//			k %= size;
-//		}
-//	}
-//}
-//void printTable(int *table, int size)
-//{
-//	for (int i = 0; i < size; i++)
-//	{
-//		if (!(table[i] == -999))
-//		{
-//			//cout << "Table [" << i << "]\t---\n";
-//			cout << "Table [" << i << "]\t" << table[i] << "\t" << table[i] % size << endl;
-//		}
-//		/*else
-//		{
-//		cout << "Table [" << i << "]\t" << table[i] << "\t" << table[i] % size << endl;
-//		}*/
-//	}
-//}
-
-//int N = 11, K = 8;
-//int *table = new int[N];
-//InitTable(table, N);
-//
-//int no = 0;
-//
-//for (int i = 0; i < K; i++)
-//{
-//	no = rand();
-//	insert(table, N, no);
-//}
-//printTable(table, N);
-
-
-
-
-//BST* Tree::find_max(BST *CurrentNode)
-//{
-//	while (CurrentNode->right != 0)                           /* здесь все очевидно - самыое максимальное значение у самого правого */
-//		CurrentNode = CurrentNode->right;
-//	return CurrentNode;
-//}
-//
-//BST* Tree::find_min(BST* CurrentNode)
-//{
-//	while (CurrentNode->left != 0)
-//		CurrentNode = CurrentNode->left;
-//	return CurrentNode;
-//}
