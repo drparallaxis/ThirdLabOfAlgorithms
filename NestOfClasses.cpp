@@ -16,22 +16,22 @@ namespace ttree
 
 	int Tree::insert_node(char value)
 	{
-		BST* n = new BST(value);              /* создаем новый узел, его мы будем вставлять */
+		BST* n = new BST(value);              
 		BST* ptr;
 		BST* ptr1 = NULL;
 
-		n->parent = n->left = n->right = 0;   /* он - лист */
+		n->parent = n->left = n->right = 0;  
 		ptr = root;
-		while (ptr != 0)                      /* идем от корня и ищем подходящее место для нашего нового элемента, оно должно быть свободно */
+		while (ptr != 0)                      
 		{
-			ptr1 = ptr;                       /* будущий родитель нового узла */
-			if (value < ptr->get_data())                               /* по определению нашего дерева - слева значение ключа меньше родителя, */
+			ptr1 = ptr;                      
+			if (value < ptr->get_data())                             
 				ptr = ptr->left;
 			else
-				ptr = ptr->right;             /* справа - больше */
+				ptr = ptr->right;            
 		}
 		n->parent = ptr1;
-		if (ptr1 == 0)                        /* дерево было пусто? */
+		if (ptr1 == 0)                       
 			root = n;
 		else
 		{
@@ -46,15 +46,15 @@ namespace ttree
 	BST* Tree::delete_node(BST *CurrentNode)
 	{
 		BST *FirstTemp, *SecondTemp;
-		if (CurrentNode->left == 0 || CurrentNode->right == 0)    /* в этой и следующих двух строках ищем вершину y, которую мы потом вырежем из дерева. Это либо z, либо следующий за z */
+		if (CurrentNode->left == 0 || CurrentNode->right == 0)    
 			FirstTemp = CurrentNode;
 		else
 			FirstTemp = find_succsessor(CurrentNode->get_data());
-		if (FirstTemp->left != 0)                                 /* x - указатель на существующего ребенка y или 0 если таковых нет */
+		if (FirstTemp->left != 0)                               
 			SecondTemp = FirstTemp->left;
 		else
 			SecondTemp = FirstTemp->right;
-		if (SecondTemp != 0)                                      /* эта и следующие 9 строк - вырезание y */
+		if (SecondTemp != 0)                                      
 			SecondTemp->parent = FirstTemp->parent;
 		if (FirstTemp->parent == 0)
 			root = SecondTemp;
@@ -65,7 +65,7 @@ namespace ttree
 			else
 				(FirstTemp->parent)->right = SecondTemp;
 		}
-		if (FirstTemp != CurrentNode)                             /* если мы вырезали вершин, отличную от z, то ее данные перемещаем в z */
+		if (FirstTemp != CurrentNode)                             
 			CurrentNode->data = FirstTemp->get_data();
 		return FirstTemp;
 	}
@@ -95,7 +95,7 @@ namespace ttree
 
 	BST* Tree::find_max(BST *CurrentNode)
 	{
-		while (CurrentNode->right != 0)                           /* здесь все очевидно - самые максимальное значение у самого правого */
+		while (CurrentNode->right != 0)                          
 			CurrentNode = CurrentNode->right;
 		return CurrentNode;
 	}
@@ -119,14 +119,14 @@ namespace ttree
 
 	BST* Tree::find_succsessor(char value)
 	{
-		BST *FirstTemp = find_node(root, value);                  // получим указатель на ноду с ключем value 
+		BST *FirstTemp = find_node(root, value);                  
 		BST *SecondTemp;
 		if (FirstTemp == 0)
 			return 0;
-		if (FirstTemp->right != 0)                                // если у нее есть правые дети, то следующий элемент - минимальный в правом поддереве 
+		if (FirstTemp->right != 0)                               
 			return find_min(FirstTemp->right);
 		SecondTemp = FirstTemp->parent;
-		while (SecondTemp != 0 && FirstTemp == SecondTemp->right)  // иначе - идем вверх и ищем первый элемент, являющийся левым потомком своего родителя																  
+		while (SecondTemp != 0 && FirstTemp == SecondTemp->right)  
 		{
 			FirstTemp = SecondTemp;
 			SecondTemp = SecondTemp->parent;
@@ -136,5 +136,7 @@ namespace ttree
 
 	BST* Tree::get_root() { return root; }
 }
+
+
 
 
